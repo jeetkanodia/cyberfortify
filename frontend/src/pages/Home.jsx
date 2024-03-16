@@ -9,7 +9,15 @@ const Home = () => {
       }}
       className="text-white w-full min-h-screen flex flex-col items-center"
     >
-      <h1 className="text-white text-9xl m-10 mt-28 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent">
+      <h1
+        style={{
+          backgroundImage: "linear-gradient(to right, #FFA500, #FF69B4)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+        className="text-white text-9xl m-10 mt-28 "
+      >
+        {/* bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent */}
         Cyber Fortify
       </h1>
 

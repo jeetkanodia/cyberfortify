@@ -10,7 +10,15 @@ const Scan = () => {
   return (
     <div className="bg-gradient-to-t from-[#2A2541] from-0% to-[#000000] to-90% absolute top-0 w-full min-h-screen h-auto flex flex-col content-center items-center sm:pt-[100px] pt-[70px]">
       <div className="flex flex-col items-center">
-        <h1 className="text-white text-5xl m-10 mt-28 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent">
+        <h1
+          style={{
+            backgroundImage: "linear-gradient(to right, #FFA500, #FF69B4)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+          className="text-white text-5xl m-10 mt-28 "
+        >
+          {/* bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent */}
           Enter the URL to scan
         </h1>
         <form className="flex flex-col items-center" onSubmit={onScan}>
