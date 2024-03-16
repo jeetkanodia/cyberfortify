@@ -16,7 +16,7 @@ const Scan = () => {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
-          className="text-white text-5xl m-10 mt-28 "
+          className="text-white text-7xl m-10 mt-28 "
         >
           {/* bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent */}
           Enter the URL to scan
@@ -30,7 +30,7 @@ const Scan = () => {
           />
           <button
             type="submit"
-            className="relative m-5 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800"
+            className="relative m-5 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800"
           >
             <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
               Scan
