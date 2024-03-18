@@ -1,3 +1,3 @@
-const BACKENDURL = "http://localhost:3000";
+const BACKENDURL = "https://cyberfortify-backend.vercel.app";
 
 export { BACKENDURL };
