@@ -38,10 +38,10 @@ router.post('/scan', async (req, res) => {
       }
     });
 
-    // Extract the names of the findings
     const findings = probelyFindingsResponse.data.results.map(result => ({
       name: result.definition.name,
-      description: result.definition.desc.split('\n')[0]
+      description: result.definition.desc.split('\n')[0],
+      fix: result.fix.split('\r\n\r\n').slice(0, 2).join('\n')
     }));
 
     res.status(200).json({ findings });
