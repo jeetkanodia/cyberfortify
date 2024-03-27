@@ -6,6 +6,7 @@ const Scan = () => {
   const [url, setUrl] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedFinding, setSelectedFinding] = useState(null);
   const onScan = (e) => {
     setLoading(true);
     setData([]);
@@ -32,8 +33,23 @@ const Scan = () => {
         }
       });
   };
+  const FixPopup = ({ finding, onClose }) => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div className="bg-white p-5 rounded-lg max-w-lg w-full">
+        <h2 className="text-xl font-bold">{finding.name}</h2>
+        <p className="my-4">{finding.fix}</p>
+        <button
+          onClick={onClose}
+          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
+
   return (
-    <div className="bg-gradient-to-t from-[#2A2541] from-0% to-[#000000] to-90% absolute top-0 w-full min-h-screen h-auto flex flex-col content-center items-center sm:pt-[100px] pt-[70px]">
+    <div className="bg-gradient-to-t from-[#2A2541] to-[#000000] absolute top-0 w-full min-h-screen flex flex-col items-center pt-[70px] sm:pt-[100px]">
       <div className="flex flex-col items-center">
         <h1
           style={{
@@ -41,9 +57,8 @@ const Scan = () => {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
-          className="text-white text-7xl m-10 mt-28 "
+          className="text-7xl m-10 mt-28"
         >
-          {/* bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent */}
           Enter the URL to scan
         </h1>
         <form className="flex flex-col items-center" onSubmit={onScan}>
@@ -51,58 +66,53 @@ const Scan = () => {
             type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            className="w-96 h-10 p-2 mb-4 m-auto text-black rounded-md"
+            className="w-96 h-10 p-2 mb-4 text-black rounded-md"
           />
           <button
             type="submit"
-            className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800"
+            className="relative inline-flex items-center justify-center p-0.5 mb-2 overflow-hidden text-xl font-medium text-gray-900 rounded-lg bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800"
           >
-            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
               Scan
             </span>
           </button>
         </form>
-        {loading ? (
+        {loading && (
           <div role="status" className="m-5">
-            <svg
-              aria-hidden="true"
-              className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-              viewBox="0 0 100 101"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                fill="currentColor"
-              />
-              <path
-                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                fill="currentFill"
-              />
-            </svg>
+            {/* Loading indicator */}
           </div>
-        ) : null}
+        )}
         <div className="text-xl text-white flex flex-col m-5 gap-4 justify-center">
-          {data.length > 0 ? (
-            <>
-              {data.map((item, index) => {
-                return (
-                  <div key={index} className="mx-20 my-5">
-                    <h2 className="text-3xl font-bold text-amber-200">
-                      {index + 1}. {item.name}
-                    </h2>
-                    <p className="text-xl font-light text-pink-100">
-                      {item.description}
-                    </p>
-                  </div>
-                );
-              })}
-            </>
-          ) : null}
+          {data.length > 0 &&
+            data.map((item, index) => (
+              <div key={index} className="mx-20 my-5">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-3xl font-bold text-amber-200">
+                    {index + 1}. {item.name}
+                  </h2>
+                  <button
+                    onClick={() => setSelectedFinding(item)}
+                    className="bg-[#b8860b] text-white py-2 px-8 text-20 rounded cursor-pointer hover:bg-[#d2a106] transition ease-in-out duration-150"
+                  >
+                    Fix
+                  </button>
+                </div>
+                <p className="text-xl font-light text-pink-100">
+                  {item.description}
+                </p>
+              </div>
+            ))}
         </div>
+        {selectedFinding && (
+          <FixPopup
+            finding={selectedFinding}
+            onClose={() => setSelectedFinding(null)}
+          />
+        )}
       </div>
     </div>
   );
 };
 
 export default Scan;
+
