@@ -23,12 +23,14 @@ const Scan = () => {
       .then((data) => {
         console.log(data);
         if (data.findings) {
-          setData(data.findings);
-          console.log(data.findings);
-          setLoading(false);
+          setTimeout(() => {
+            setData(data.findings);
+            console.log(data.findings);
+            setLoading(false);
+          }, 10000);
         }
         if (data.error) {
-          alert(data.error);
+          alert("The website you are trying to scan doesnt belong to you!!");
           setLoading(false);
         }
       });
@@ -78,8 +80,19 @@ const Scan = () => {
           </button>
         </form>
         {loading && (
-          <div role="status" className="m-5">
+          <div role="status" className="m-5 text-3xl font-bold text-amber-200">
             {/* Loading indicator */}
+            <div className="flex ">
+              Scanning
+              <Typewriter
+                options={{
+                  strings: [".", "..", "..."],
+                  autoStart: true,
+                  loop: true,
+                  delay: 0,
+                }}
+              />
+            </div>
           </div>
         )}
         <div className="text-xl text-white flex flex-col m-5 gap-4 justify-center">
@@ -115,4 +128,3 @@ const Scan = () => {
 };
 
 export default Scan;
-
