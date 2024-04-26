@@ -7,6 +7,7 @@ const Scan = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedFinding, setSelectedFinding] = useState(null);
+  const [timesClicked, setTimesClicked] = useState(0);
   const onScan = (e) => {
     setLoading(true);
     setData([]);
@@ -23,8 +24,11 @@ const Scan = () => {
       .then((data) => {
         console.log(data);
         if (data.findings) {
+          setTimesClicked((prev) => prev + 1);
           setTimeout(() => {
-            setData(data.findings);
+            if (timesClicked == 0) setData(data.findings);
+            // we remove the first finding if the user clicks the scan button again
+            else setData(data.findings.slice(1));
             console.log(data.findings);
             setLoading(false);
           }, 10000);
